@@ -1,19 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
 
+<head>
+    <title>Word Counter</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    img.img-background {
+        position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            -webkit-filter: blur(10px); /* Safari 6.0 - 9.0 */
+            filter: blur(4px);
+    }
+</style>
+<body>
+    <img class="img-background" alt="bg" src="https://cdn.wallpapersafari.com/42/10/U8Chiz.jpg">
+    <div class="container p-5 my-5 w-100 border bg-white rounded-2">
+        <div class="text-center">
+            <h3 class="p-2 text-secondary text-uppercase">Input The Word Here!</h3>
+        <textarea class="p-3" id="InputText" rows="5" cols="120">
+        </textarea>
+        </div>
+        <div class="text-left">
+            <label><strong>words:</strong><span id="noofwords"></span></label>
+        </div>
+    </div>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Calculator</title>
-  </head>
-  <body>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+    <script>
+        const cleanString = (str) =>{
+            return str.replace(/[^\w\s]|_/g, '')
+                .replace(/\s+/g, ' ')
+                .toLowerCase();
+        }
+        const extractSubstr = (str, regexp) => {
+            return cleanString(str).match(regexp) || [];
+        }
+        const getWordsByNonWhiteSpace = (str) => {
+            return extractSubstr(str, /\S+/g);
+        }
+        const getWordsByWordBoundaries = (str) => {
+            return extractSubstr(str, /\b[a-z\d]+\b/g);
+        }
+        const countWords = (str) => {
+            return getWordsByWordBoundaries(str).length;
+        }
+        document.getElementById("InputText").onkeyup = function() {
+            let str = document.getElementById("InputText").value;
+            document.getElementById("noofwords").innerHTML = countWords(str);
+        };
+    </script>
+</body>
+
 </html>
+​
