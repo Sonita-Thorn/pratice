@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <title>Calculator</title>
+    </head>
+    <body style="height: 100vh;">
+        <div class="container h-100" id="app">
+            <div class="row h-100 d-flex justify-content-center align-items-center">
+                <div class="col-lg-5 col-md-7 col-10">
+                    <div class="card shadow-lg bg-white" style="border-radius: 1rem;">
+                        <div class="card-body">
+                            <form>
+                                <div class="px-2">
+                                    <div class="row">
+                                        <div class="col-12 p-2">
+                                            <input 
+                                                class="form-control form-control-lg" 
+                                                type="text"
+                                                v-model="answer"
+                                                readonly 
+                                            />
+                                        </div>
+                                        <div 
+                                            v-for="c in cal_keys"
+                                            class="col-3 p-2"
+                                        >
+                                            <button 
+                                                :class="`btn btn-${c.toLowerCase() == 'c' ? 'warning' : 'secondary'} btn-lg w-100 text-white`" 
+                                                type="button"
+                                                @click="setAnswer(c)"
+                                            >
+                                                <template
+                                                    v-if="c == '/'"
+                                                >
+                                                    %
+                                                </template>
+                                                <template
+                                                    v-else-if="c == '*'"
+                                                >
+                                                    x
+                                                </template>
+                                                <template
+                                                    v-else
+                                                >
+                                                    {{ c }}
+                                                </template>
+                                            </button>
+                                        </div>
+                                        <div class="col-9 p-2">
+                                            <button 
+                                                class="btn btn-info btn-lg w-100 text-white" 
+                                                type="button"
+                                                @click="calculate"
+                                            >
+                                                =
+                                            </button>
+                                        </div>
+                                        <div class="col-3 p-2">
+                                            <button 
+                                                class="btn btn-info btn-lg w-100 text-white" 
+                                                type="button"
+                                                @click="setAnswer('B')"
+                                            >
+                                                <i class="las la-backspace"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        answer: '',
+                        cal_keys: ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '/', '0', '.', 'C']
+                    };
+                },
+                methods: {
+                    setAnswer: function(v) {
+                        let { answer } = this;
+                        if (v.toUpperCase() == 'C') {
+                            this.$set(this, 'answer', '');
+                            return false;
+                        }
+                        if (v.toUpperCase() == 'B') {
+                            this.$set(this, 'answer', answer.slice(0, -1));
+                            return false;
+                        }
+
+                        if (v == '/') v = '%';
+                        if (v == '*') v = 'x';
+
+                        const val = `${answer}${v}`;
+                        answer = answer.toString();
+                        if (
+                            (!answer && ['+', '%', 'x', '-', '.'].includes(v)) 
+                            || (answer && answer.includes('.') && v == '.')
+                            || (answer && answer.includes(['+', '%', 'x', '-']))
+                            || (answer && v == '.' && ['+', '%', 'x', '-'].includes(answer[answer.length - 1]))
+                            || (answer && answer[answer.length - 1] == '.' && ['+', '%', 'x', '-'].includes(v))
+                            || (answer && ['+', '%', 'x', '-'].some(d => answer.includes(d)) && ['+', '%', 'x', '-'].includes(v))
+                        ) return false;
+
+                        this.$set(this, 'answer', val);
+                    },
+                    calculate: function() {
+                        const { answer } = this;
+                        if (!answer) return false;
+                        const sign = answer.split('').filter(v => ['+', '%', 'x', '-'].includes(v))[0];
+                        const values = answer.split(sign);
+                        if (!values[0] || !values[1]) return false;
+
+                        values[0] = parseFloat(values[0]);
+                        values[1] = parseFloat(values[1]);
+                        switch (sign) {
+                            case '+': 
+                                this.$set(this, 'answer', values[0] + values[1]);
+                                break;
+                            case '-': 
+                                this.$set(this, 'answer', values[0] - values[1]);
+                                break;
+                            case 'x': 
+                                this.$set(this, 'answer', values[0] * values[1]);
+                                break;
+                            case '%': 
+                                this.$set(this, 'answer', values[0] / values[1]);
+                                break;
+                            default:
+                                break;
+                        }
+                    },
+                }
+            });
+        </script>
+    </body>
+</html>
