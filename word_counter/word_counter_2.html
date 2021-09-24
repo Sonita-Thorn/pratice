@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Word Counter</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">    
+        <style>
+            img.img-background {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                -webkit-filter: blur(10px);
+                filter: blur(4px);
+            }
+        </style>
+    </head>
+    <body>
+        <img class="img-background" alt="bg" src="https://cdn.wallpapersafari.com/42/10/U8Chiz.jpg">
+        <div class="container p-5 my-5 w-100 border bg-white rounded-2">
+            <div class="text-center">
+                <h3 class="p-2 text-secondary text-uppercase">Input The Word Here!</h3>
+                <textarea class="p-3" id="InputText" rows="5" cols="120"></textarea>
+            </div>
+            <div class="text-left">
+                <label><strong>words:</strong><span id="noofwords"></span></label>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const cleanString = str => str.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ').toLowerCase();
+            const extractSubstr = (str, regexp) => cleanString(str).match(regexp) || [];
+            const getWordsByNonWhiteSpace = str => extractSubstr(str, /\S+/g);
+            const getWordsByWordBoundaries = str => extractSubstr(str, /\b[a-z\d]+\b/g);
+            const countWords = str => getWordsByWordBoundaries(str).length;
+
+            document.getElementById("InputText").onkeyup = () => {
+                let str = document.getElementById("InputText").value;
+                document.getElementById("noofwords").innerHTML = countWords(str);
+            };
+        </script>
+    </body>
+</html>
+​
