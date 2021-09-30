@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Guessing Here!</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+      <img class="img-background" alt="bg" src="https://i.pinimg.com/originals/47/c5/ad/47c5ad1cf237848af9fc1db8cf0772a1.gif">
+        <nav class="nav-custom bg-dark navbar-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand p-2" href="#"><strong>GUESSING NUMBER</strong></a>
+          </div>
+        </nav>
+        <div class="container-fluid">
+          <div class="row col-md-12 p-5 mt-5">
+            <div class="col-md-9">
+              <div class="card text-center shadow-lg bg-white rounded-3">
+                <div class="card-header">
+                  <h5>Pick A Number</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row col-md-12 card-button">
+                    <div class="col-md-1">
+                      <button class="btn btn-secondary btn-lg d-none" >0</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="zero" value="0">0</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="one" value="1">1</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="two" value="2">2</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="three" value="3">3</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="four" value="4">4</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="five" value="5">5</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="six" value="6">6</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="seven" value="7">7</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="eight" value="8">8</button>
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-secondary btn-lg" id="nine" value="9">9</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mr-3">
+              <div class="card text-center shadow-lg bg-white rounded-3">
+                <div class="card-header">
+                  <h5 value="">Result:</h5>
+                </div>
+                <div class="card-body">
+                  <h5 id="result"></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="card-massage" class="col-md-12 p-5 d-none">
+            <div class="card text-center shadow-lg bg-white rounded-3">
+              <div class="card-header">
+                <h5>Massage:</h5>
+              </div>
+              <div class="card-body">
+                <strong><label id="massage"></label></strong>
+                <p>You can click the button to guess the number again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</html>
