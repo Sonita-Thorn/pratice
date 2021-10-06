@@ -1,0 +1,10 @@
+img.image-logo{
+    width: 50px;
+    height: 50px;
+}
+.select-group input.form-control{ 
+    width: 70%
+}
+.select-group select.input-group-addon { 
+    width: 30%; 
+}
