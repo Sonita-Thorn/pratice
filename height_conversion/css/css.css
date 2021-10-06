@@ -8,3 +8,10 @@ img.image-logo{
 .select-group select.input-group-addon { 
     width: 30%; 
 }
+.btn-convert{
+    margin-left: 100px;
+    margin-right: 90px;
+}
+.header{
+    margin-left: 55px;
+}
